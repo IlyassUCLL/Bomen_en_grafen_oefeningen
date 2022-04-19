@@ -18,9 +18,13 @@ def create_main_surface():
     return pygame.display.set_mode(screen_size)
 
 def render_frame(surface, x):
-    pygame.draw.rect(surface, (255,255,255), pygame.Rect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.draw.circle(surface, (0,0,0), (x, SCREEN_HEIGHT/2), 100, 0)
     flip()
+
+def clear_surface(surface, color):
+    surface.fill(color)
+
+
 
 def main():
     surface = create_main_surface()
@@ -30,6 +34,7 @@ def main():
     running = True
     while (running == True):
         d_t = clock.tick()/1000 # update the clock and get time since the last call of .tick()
+        clear_surface(surface, (255,255,255))
 
         circle_x += 20*d_t # update circle position based on its velocity and d_t
 
