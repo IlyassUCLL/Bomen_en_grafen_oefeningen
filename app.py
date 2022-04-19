@@ -13,6 +13,6 @@ def create_main_surface():
 def main():
     create_main_surface()
     while (True):
-        a=0
+        pygame.event.pump() 
 
 main()
