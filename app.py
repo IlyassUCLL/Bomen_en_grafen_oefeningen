@@ -12,7 +12,11 @@ def create_main_surface():
     pygame.display.set_mode(screen_size)
 def main():
     create_main_surface()
-    while (True):
-        pygame.event.pump() 
+
+    running = True
+    while (running == True):
+        for e in pygame.event.get():
+            if (e.type == pygame.QUIT):
+                running = False
 
 main()
