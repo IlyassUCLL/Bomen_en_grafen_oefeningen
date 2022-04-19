@@ -16,6 +16,9 @@ def main():
     running = True
     while (running == True):
         for e in pygame.event.get():
+            if (e.type == pygame.KEYDOWN): 
+                print ("u win")
+                
             if (e.type == pygame.QUIT):
                 running = False
 
