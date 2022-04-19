@@ -1,9 +1,11 @@
 import pygame
 from pygame.display import flip
+from time import sleep
 
 SCREEN_WIDTH = 1024
 SCREEN_HEIGHT = 768
 
+clock = pygame.time.Clock()
 
 # Initialize Pygame
 pygame.init()
@@ -16,24 +18,27 @@ def create_main_surface():
     return pygame.display.set_mode(screen_size)
 
 def render_frame(surface, x):
-    pygame.draw.circle(surface, (50,50,50), (x, SCREEN_HEIGHT/2), 100, 0)
+    pygame.draw.rect(surface, (255,255,255), pygame.Rect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT))
+    pygame.draw.circle(surface, (0,0,0), (x, SCREEN_HEIGHT/2), 100, 0)
     flip()
-
 
 def main():
     surface = create_main_surface()
-    
+
+    circle_x = 0
+
     running = True
     while (running == True):
+        d_t = clock.tick()/1000 # update the clock and get time since the last call of .tick()
 
-        render_frame(surface,  pygame.mouse.get_pos()[0])
+        circle_x += 20*d_t # update circle position based on its velocity and d_t
+
+        render_frame(surface,  circle_x) # render the frame
 
         for e in pygame.event.get():
-            
             if (e.type == pygame.KEYDOWN): 
                 print ("u win")
-                
             if (e.type == pygame.QUIT):
                 running = False
-
+    
 main()
