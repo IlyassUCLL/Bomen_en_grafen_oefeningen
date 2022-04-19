@@ -1,10 +1,16 @@
 import os
 import os.path
 import pygame
+import random
 import re
 class searchPath:
+    path=[]
+    table=[]
     def __init__(self):
-        pass
+        pygame.init()
+        self.path = self.determine_path("wav")
+        self.table=self.create_sound_table(self.path)
+
     def find_audio_file(self, name=str):
         files=[]
         for dirpath, dirnames, filenames in os.walk("."):
@@ -34,13 +40,12 @@ class searchPath:
             soundx = pygame.mixer.Sound(item)
             table.append(soundx)
         return table
+    def play_random_explosion(self):
+        x=random.randint(0,len(self.table)-1)
+        self.table[x].play()
+        while (pygame.mixer.get_busy()):
+            pygame.time.wait(100)
 
 pygame.init()
 object = searchPath()
-path = object.determine_path("wav")
-table = object.create_sound_table(path)
-print(len(table))
-table[0].play()
-table[1].play()
-while(pygame.mixer.get_busy()):
-    pygame.time.wait(100)
+object.play_random_explosion()
