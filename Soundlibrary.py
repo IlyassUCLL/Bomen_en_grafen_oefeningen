@@ -4,8 +4,8 @@ class SoundLibrary:
     first = 0
     def __init__(self, file=str):
         if file == 'explosion':
-            self.explosion = pygame.mixer.Sound('5.wav'
-            )
+            self.explosion = pygame.mixer.Sound('subdir/5.wav'
+                                                )
     def uitvoering(self):
         pygame.init()
         var = pygame.mixer.Sound.play(self.explosion)
