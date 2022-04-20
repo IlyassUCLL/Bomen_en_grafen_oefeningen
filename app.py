@@ -1,6 +1,7 @@
 import pygame
 from pygame.display import flip
 
+import Background
 SCREEN_WIDTH = 1024
 SCREEN_HEIGHT = 768
 BG_COLOR = (255, 255, 255)
@@ -44,6 +45,8 @@ class PlayerController:
 def render_frame(surface, state):
     clear_surface(surface, BG_COLOR) # render the frame
     state.render(surface)
+    image = pygame.image.load('ufo4.png')
+    surface.blit(image,(state.x-30, state.y-30))
     flip()
 
 def clear_surface(surface, color):
@@ -57,15 +60,19 @@ class Keyboard:
         return pygame.event.get()
 
 class State:
+    background = None
     def __init__(self):
         self.x = 0
         self.y = 0
+        self.background = Background.Background()
 
     def update(self, d_t, dir): 
         self.x += dir.x*500*d_t # update circle position based on its velocity and d_t
         self.y += dir.y*500*d_t # update circle position based on its velocity and d_t
 
     def render(self, surface):  
+        self.background.render(surface)
+
         pygame.draw.circle(surface, (0,0,0), (self.x, self.y), 100, 10)
 
 
@@ -87,5 +94,5 @@ def main():
         #process_key_input(state, pygame.key.get_pressed())
         state.update(d_t, player_controller.get_arrow_key_dir())
         render_frame(surface, state)
-    
+
 main()
