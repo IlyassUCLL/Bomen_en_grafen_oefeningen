@@ -100,6 +100,6 @@ def main():
 
         state.update(d_t, player_controller.get_arrow_key_dir())
         print(explosion.seconds)
-        render_frame(surface, state, explosion)
+        render_frame(surface, state, explosion, d_t)
 
 main()
