@@ -8,7 +8,6 @@ class FrameBasedAnimation:
         self.seconds = secondsPerFrame
 
     def render(self, surface):
-        #self.seconds = self.seconds%0.8
         if self.seconds <= 0.05:
             surface.blit(self.images[0], (500, 350))
         elif self.seconds >= 0.05 and self.seconds <= 0.1:
