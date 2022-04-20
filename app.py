@@ -17,19 +17,19 @@ def create_main_surface():
     # Create window with given size
     return pygame.display.set_mode(screen_size)
 
-def process_key_input(key):
+def process_key_input(keyboard):
     v = pygame.Vector2()
 
-    if key[pygame.K_LEFT]:
+    if (keyboard.is_key_pressed(pygame.K_LEFT)):
         v.x += -1
 
-    if key[pygame.K_UP]:
+    if (keyboard.is_key_pressed(pygame.K_UP)):
         v.y += -1  
 
-    if key[pygame.K_RIGHT]:
+    if (keyboard.is_key_pressed(pygame.K_RIGHT)):
         v.x += 1
 
-    if key[pygame.K_DOWN]:
+    if (keyboard.is_key_pressed(pygame.K_DOWN)):
         v.y += 1
 
     # returns vector 0 length zero if no key presses or normalized direction
@@ -44,6 +44,14 @@ def render_frame(surface, state):
 
 def clear_surface(surface, color):
     surface.fill(color)
+
+class Keyboard:
+        
+    def is_key_pressed(self, key):
+        return pygame.key.get_pressed()[key]
+    
+    def key_events(self):
+        return pygame.event.get()
 
 class State:
     def __init__(self):
@@ -60,19 +68,20 @@ class State:
 
 def main():
     surface = create_main_surface()
+    keyboard = Keyboard()
     state = State()
     running = True
     
     while (running == True):
         d_t = clock.tick()/1000 # update the clock and get time since the last call of .tick()
 
-        for e in pygame.event.get():
+        for e in keyboard.key_events():
             if (e.type == pygame.QUIT):
                 running = False
 
     
         #process_key_input(state, pygame.key.get_pressed())
-        state.update(d_t, process_key_input(state, pygame.key.get_pressed()))
+        state.update(d_t, process_key_input(keyboard))
         render_frame(surface, state)    
     
 main()
