@@ -28,6 +28,7 @@ class PlayerController:
         if (self.keyboard.is_key_pressed(pygame.K_LEFT)):
             v.x += -1
 
+
         if (self.keyboard.is_key_pressed(pygame.K_UP)):
             v.y += -1  
 
@@ -45,8 +46,8 @@ class PlayerController:
 def render_frame(surface, state):
     clear_surface(surface, BG_COLOR) # render the frame
     state.render(surface)
-    image = pygame.image.load('ufo4.png')
-    surface.blit(image,(state.x-30, state.y-30))
+    # image = pygame.image.load('ufo4.png')
+    # surface.blit(image,(state.x-30, state.y-30))
     flip()
 
 def clear_surface(surface, color):
@@ -67,15 +68,16 @@ class State:
         self.y = 0
         self.background = Background.Background()
         self.Spaceship = Spaceship(pygame.image.load('ufo4.png'))
-
+    def getSpaceship(self):
+        return self.Spaceship;
     def update(self, d_t, dir): 
         self.x += dir.x*500*d_t # update circle position based on its velocity and d_t
         self.y += dir.y*500*d_t # update circle position based on its velocity and d_t
-
+        self.getSpaceship().setPosiiton((self.x,self.y))
     def render(self, surface):  
         self.background.render(surface)
 
-        pygame.draw.circle(surface, (0,0,0), (self.x, self.y), 100, 10)
+        # pygame.draw.circle(surface, (0,0,0), (self.x, self.y), 100, 10)
         self.Spaceship.render(surface)
 
 
