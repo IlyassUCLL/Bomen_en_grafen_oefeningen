@@ -17,25 +17,29 @@ def create_main_surface():
     # Create window with given size
     return pygame.display.set_mode(screen_size)
 
-def process_key_input(keyboard):
-    v = pygame.Vector2()
+class PlayerController:
+    def __init__(self, keyboard):
+        self.keyboard = keyboard
 
-    if (keyboard.is_key_pressed(pygame.K_LEFT)):
-        v.x += -1
+    def get_arrow_key_dir(self):
+        v = pygame.Vector2()
 
-    if (keyboard.is_key_pressed(pygame.K_UP)):
-        v.y += -1  
+        if (self.keyboard.is_key_pressed(pygame.K_LEFT)):
+            v.x += -1
 
-    if (keyboard.is_key_pressed(pygame.K_RIGHT)):
-        v.x += 1
+        if (self.keyboard.is_key_pressed(pygame.K_UP)):
+            v.y += -1  
 
-    if (keyboard.is_key_pressed(pygame.K_DOWN)):
-        v.y += 1
+        if (self.keyboard.is_key_pressed(pygame.K_RIGHT)):
+            v.x += 1
 
-    # returns vector 0 length zero if no key presses or normalized direction
-    if (v.length() == 0):
-        return pygame.Vector2(0,0)
-    return v.normalize()
+        if (self.keyboard.is_key_pressed(pygame.K_DOWN)):
+            v.y += 1
+
+        # returns vector 0 length zero if no key presses or normalized direction
+        if (v.length() == 0):
+            return pygame.Vector2(0,0)
+        return v.normalize()
     
 def render_frame(surface, state):
     clear_surface(surface, BG_COLOR) # render the frame
@@ -46,7 +50,6 @@ def clear_surface(surface, color):
     surface.fill(color)
 
 class Keyboard:
-        
     def is_key_pressed(self, key):
         return pygame.key.get_pressed()[key]
     
@@ -69,6 +72,7 @@ class State:
 def main():
     surface = create_main_surface()
     keyboard = Keyboard()
+    player_controller = PlayerController(keyboard)
     state = State()
     running = True
     
@@ -79,8 +83,9 @@ def main():
             if (e.type == pygame.QUIT):
                 running = False
 
+    
         #process_key_input(state, pygame.key.get_pressed())
-        state.update(d_t, process_key_input(keyboard))
-        render_frame(surface, state)    
+        state.update(d_t, player_controller.get_arrow_key_dir())
+        render_frame(surface, state)
     
 main()
