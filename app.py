@@ -66,7 +66,7 @@ class State:
         self.x = 0
         self.y = 0
         self.background = Background.Background()
-        frames = [pygame.image.load(f'explosion/{i}.png') for i in range(1, 9 + 1)]
+        self.frames = [pygame.image.load(f'explosion/{i}.png') for i in range(1, 9 + 1)]
 
     def update(self, d_t, dir): 
         self.x += dir.x*500*d_t # update circle position based on its velocity and d_t
