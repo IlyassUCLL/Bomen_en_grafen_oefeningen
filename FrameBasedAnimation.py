@@ -29,4 +29,5 @@ class FrameBasedAnimation:
             surface.blit(self.images[9], (500, 350))
 
     def update(self, elapsedtime):
-        self.seconds = elapsedtime
+        self.seconds += elapsedtime
+        print (self.seconds)

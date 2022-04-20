@@ -45,8 +45,8 @@ class PlayerController:
     
 def render_frame(surface, state, explosion):
     clear_surface(surface, BG_COLOR) # render the frame
-    state.render(surface)
     explosion.render(surface)
+    state.render(surface)
     image = pygame.image.load('ufo4.png')
     surface.blit(image,(state.x-30, state.y-30))
     flip()
@@ -83,7 +83,7 @@ def main():
     player_controller = PlayerController(keyboard)
     state = State()
     frames = [pygame.image.load(f'explosion/{i}.png') for i in range(1, 9 + 1)]
-    explosion = FrameBasedAnimation(frames, 2)
+    explosion = FrameBasedAnimation(frames, 0)
     running = True
     
     while (running == True):
