@@ -1,6 +1,6 @@
 import pygame
 from pygame.display import flip
-
+from spaceship import Spaceship
 import Background
 SCREEN_WIDTH = 1024
 SCREEN_HEIGHT = 768
@@ -61,10 +61,12 @@ class Keyboard:
 
 class State:
     background = None
+    Spaceship = None
     def __init__(self):
         self.x = 0
         self.y = 0
         self.background = Background.Background()
+        self.Spaceship = Spaceship(pygame.image.load('ufo4.png'))
 
     def update(self, d_t, dir): 
         self.x += dir.x*500*d_t # update circle position based on its velocity and d_t
@@ -74,6 +76,7 @@ class State:
         self.background.render(surface)
 
         pygame.draw.circle(surface, (0,0,0), (self.x, self.y), 100, 10)
+        self.Spaceship.render(surface)
 
 
 def main():
