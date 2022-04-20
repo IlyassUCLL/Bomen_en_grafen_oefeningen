@@ -2,6 +2,7 @@ import pygame
 from pygame.display import flip
 
 import Background
+from FrameBasedAnimation import FrameBasedAnimation
 SCREEN_WIDTH = 1024
 SCREEN_HEIGHT = 768
 BG_COLOR = (255, 255, 255)
@@ -42,9 +43,10 @@ class PlayerController:
             return pygame.Vector2(0,0)
         return v.normalize()
     
-def render_frame(surface, state):
+def render_frame(surface, state, explosion):
     clear_surface(surface, BG_COLOR) # render the frame
     state.render(surface)
+    explosion.render(surface)
     image = pygame.image.load('ufo4.png')
     surface.blit(image,(state.x-30, state.y-30))
     flip()
@@ -72,7 +74,6 @@ class State:
 
     def render(self, surface):  
         self.background.render(surface)
-
         pygame.draw.circle(surface, (0,0,0), (self.x, self.y), 100, 10)
 
 
@@ -81,6 +82,8 @@ def main():
     keyboard = Keyboard()
     player_controller = PlayerController(keyboard)
     state = State()
+    frames = [pygame.image.load(f'explosion/{i}.png') for i in range(1, 9 + 1)]
+    explosion = FrameBasedAnimation(frames, 2)
     running = True
     
     while (running == True):
@@ -93,6 +96,7 @@ def main():
     
         #process_key_input(state, pygame.key.get_pressed())
         state.update(d_t, player_controller.get_arrow_key_dir())
-        render_frame(surface, state)
+        explosion.update(d_t)
+        render_frame(surface, state, explosion)
 
 main()
