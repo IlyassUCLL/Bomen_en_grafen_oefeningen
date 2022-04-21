@@ -2,6 +2,8 @@ import pygame
 class bullet:
     position = None
     speed=100
+    def get_position(self):
+        return self.position
     def __init__(self,position):
         self.position = position
     def render(self,surface):

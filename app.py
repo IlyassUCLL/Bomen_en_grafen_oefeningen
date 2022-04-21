@@ -1,5 +1,7 @@
 import pygame
 from pygame.display import flip
+import random
+import Bullet
 from spaceship import Spaceship
 from Bullet import bullet
 import Background
@@ -66,26 +68,37 @@ class Keyboard:
 class State:
     background = None
     Spaceship = None
-    kogel = bullet((500,-200))
+    value = 20
+    lijst=  []
+    def create(self,bullets):
+        for i in range(20):
+            self.lijst.append(bullet((random.randint(0,1024),-100)))
+
     def __init__(self):
+        self.create(self.lijst)
         self.x = 1048//2-95
         self.y = 768//2+175
         self.background = Background.Background()
         self.Spaceship = Spaceship(pygame.image.load('ufo4.png'))
 
     def getSpaceship(self):
-        return self.Spaceship;
+        return self.Spaceship
+
     def update(self, d_t, dir): 
         self.x += dir.x*500*d_t # update circle position based on its velocity and d_t
         self.y += dir.y*500*d_t # update circle position based on its velocity and d_t
-        self.kogel.update(d_t)
+        for i in self.lijst:
+            i.update(d_t)
+
+
         self.getSpaceship().setPosiiton((self.x,self.y))
 
     def render(self, surface):  
         self.background.render(surface)
         # pygame.draw.circle(surface, (0,0,0), (self.x, self.y), 100, 10)
         self.Spaceship.render(surface)
-        self.kogel.render(surface)
+        for i in self.lijst:
+            i.render(surface)
 
 
 def main():
