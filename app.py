@@ -68,14 +68,9 @@ class Keyboard:
 class State:
     background = None
     Spaceship = None
-    value = 20
     lijst=  []
-    def create(self,bullets):
-        for i in range(20):
-            self.lijst.append(bullet((random.randint(0,1024),-100)))
 
     def __init__(self):
-        self.create(self.lijst)
         self.x = 1048//2-95
         self.y = 768//2+175
         self.background = Background.Background()
@@ -114,16 +109,22 @@ def main():
 
     while (running == True):
         d_t = clock.tick()/1000 # update the clock and get time since the last call of .tick()
-
-        for e in keyboard.key_events():
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_BACKSPACE]:
+            state.lijst.append(bullet(state.getSpaceship().getPosition(),-100))
+        for e in pygame.event.get():
             
             if (e.type == pygame.QUIT):
                 running = False
-            if(e.type == timer_event ):
-                state.lijst.append(bullet((random.randint(0,500),-200)))
+            if(e.type == timer_event):
+                state.lijst.append(bullet((random.randint(0,1024),-200),100))
+            if e.type == pygame.KEYDOWN:
+                if e.key == pygame.K_SPACE:
+                    print(True)
+                    state.lijst.append(bullet(state.getSpaceship().getPosition(),100))
 
 
-    
+
         #process_key_input(state, pygame.key.get_pressed())
         state.update(d_t, player_controller.get_arrow_key_dir(state))
         render_frame(surface, state)

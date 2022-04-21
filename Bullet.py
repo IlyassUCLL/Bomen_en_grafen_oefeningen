@@ -4,8 +4,9 @@ class bullet:
     speed=100
     def get_position(self):
         return self.position
-    def __init__(self,position):
+    def __init__(self,position,speed):
         self.position = position
+        self.speed = speed
     def render(self,surface):
         image = pygame.image.load("bullets/plasma.png")
         surface.blit(image,(self.position))
