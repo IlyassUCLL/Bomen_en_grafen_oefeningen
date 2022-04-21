@@ -108,8 +108,10 @@ def main():
     player_controller = PlayerController(keyboard)
     state = State()
     running = True
-    pygame.time.set_timer(pygame.MOUSEBUTTONDOWN, 1000)
-    
+    time_delay = 1000  # 3 seconds
+    timer_event = pygame.USEREVENT + 1
+    pygame.time.set_timer(timer_event, time_delay)
+
     while (running == True):
         d_t = clock.tick()/1000 # update the clock and get time since the last call of .tick()
 
@@ -117,10 +119,9 @@ def main():
             
             if (e.type == pygame.QUIT):
                 running = False
-        
-            if (e.type == pygame.MOUSEBUTTONDOWN):
-                print(e)
-                state.lijst.append(bullet((random.randint(0, 1024), 0)))
+            if(e.type == timer_event ):
+                state.lijst.append(bullet((random.randint(0,500),-200)))
+
 
     
         #process_key_input(state, pygame.key.get_pressed())
