@@ -66,7 +66,7 @@ class Keyboard:
 class State:
     background = None
     Spaceship = None
-    kogel = bullet()
+    kogel = bullet((500,500))
     def __init__(self):
         self.x = 1048//2-95
         self.y = 768//2+175
