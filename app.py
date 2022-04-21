@@ -23,20 +23,20 @@ class PlayerController:
     def __init__(self, keyboard):
         self.keyboard = keyboard
 
-    def get_arrow_key_dir(self):
+    def get_arrow_key_dir(self, state):
         v = pygame.Vector2()
-        if (self.keyboard.is_key_pressed(pygame.K_LEFT)):
+        if (self.keyboard.is_key_pressed(pygame.K_LEFT) and state.getSpaceship().getPosition()[0]>=0):
             v.x += -1
 
 
-        if (self.keyboard.is_key_pressed(pygame.K_UP)):
+        if (self.keyboard.is_key_pressed(pygame.K_UP) and state.getSpaceship().getPosition()[1]>=0):
             v.y += -1  
 
-        if (self.keyboard.is_key_pressed(pygame.K_RIGHT)):
+        if (self.keyboard.is_key_pressed(pygame.K_RIGHT) and state.getSpaceship().getPosition()[0]<=1024-95*2):
 
             v.x += 1
 
-        if (self.keyboard.is_key_pressed(pygame.K_DOWN)):
+        if (self.keyboard.is_key_pressed(pygame.K_DOWN) and state.getSpaceship().getPosition()[1]<=768-95*2):
             v.y += 1
             # Keep player on the screen
 
@@ -67,7 +67,7 @@ class State:
     Spaceship = None
     def __init__(self):
         self.x = 1048//2-95
-        self.y = 768//2+200
+        self.y = 768//2+175
         self.background = Background.Background()
         self.Spaceship = Spaceship(pygame.image.load('ufo4.png'))
 
@@ -99,7 +99,7 @@ def main():
 
     
         #process_key_input(state, pygame.key.get_pressed())
-        state.update(d_t, player_controller.get_arrow_key_dir())
+        state.update(d_t, player_controller.get_arrow_key_dir(state))
         render_frame(surface, state)
 
 main()
