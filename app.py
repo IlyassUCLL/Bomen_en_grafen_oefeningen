@@ -78,7 +78,9 @@ class State:
     def update(self, d_t, dir): 
         self.x += dir.x*500*d_t # update circle position based on its velocity and d_t
         self.y += dir.y*500*d_t # update circle position based on its velocity and d_t
+        self.kogel.update(d_t)
         self.getSpaceship().setPosiiton((self.x,self.y))
+
     def render(self, surface):  
         self.background.render(surface)
         # pygame.draw.circle(surface, (0,0,0), (self.x, self.y), 100, 10)
