@@ -87,6 +87,7 @@ class State:
     def update(self, d_t, dir): 
         self.x += dir.x*500*d_t # update circle position based on its velocity and d_t
         self.y += dir.y*500*d_t # update circle position based on its velocity and d_t
+
         for i in self.lijst:
             i.update(d_t)
 
@@ -107,13 +108,19 @@ def main():
     player_controller = PlayerController(keyboard)
     state = State()
     running = True
+    pygame.time.set_timer(pygame.MOUSEBUTTONDOWN, 1000)
     
     while (running == True):
         d_t = clock.tick()/1000 # update the clock and get time since the last call of .tick()
 
         for e in keyboard.key_events():
+            
             if (e.type == pygame.QUIT):
                 running = False
+        
+            if (e.type == pygame.MOUSEBUTTONDOWN):
+                print(e)
+                state.lijst.append(bullet((random.randint(0, 1024), 0)))
 
     
         #process_key_input(state, pygame.key.get_pressed())
