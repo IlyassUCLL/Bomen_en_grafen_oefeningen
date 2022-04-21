@@ -19,12 +19,12 @@ def create_main_surface():
     return pygame.display.set_mode(screen_size)
 
 class PlayerController:
+
     def __init__(self, keyboard):
         self.keyboard = keyboard
 
     def get_arrow_key_dir(self):
         v = pygame.Vector2()
-
         if (self.keyboard.is_key_pressed(pygame.K_LEFT)):
             v.x += -1
 
@@ -33,10 +33,12 @@ class PlayerController:
             v.y += -1  
 
         if (self.keyboard.is_key_pressed(pygame.K_RIGHT)):
+
             v.x += 1
 
         if (self.keyboard.is_key_pressed(pygame.K_DOWN)):
             v.y += 1
+            # Keep player on the screen
 
         # returns vector 0 length zero if no key presses or normalized direction
         if (v.length() == 0):
@@ -64,10 +66,11 @@ class State:
     background = None
     Spaceship = None
     def __init__(self):
-        self.x = 0
-        self.y = 0
+        self.x = 1048//2-95
+        self.y = 768//2+200
         self.background = Background.Background()
         self.Spaceship = Spaceship(pygame.image.load('ufo4.png'))
+
     def getSpaceship(self):
         return self.Spaceship;
     def update(self, d_t, dir): 
@@ -76,7 +79,6 @@ class State:
         self.getSpaceship().setPosiiton((self.x,self.y))
     def render(self, surface):  
         self.background.render(surface)
-
         # pygame.draw.circle(surface, (0,0,0), (self.x, self.y), 100, 10)
         self.Spaceship.render(surface)
 

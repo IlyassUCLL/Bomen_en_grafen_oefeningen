@@ -1,6 +1,6 @@
 class Spaceship:
     image = None
-    positition=(50-1024//2,50-768//2)
+    positition=None
     def setPosiiton(self, position):
         self.positition = position;
     def getPosition(self):
