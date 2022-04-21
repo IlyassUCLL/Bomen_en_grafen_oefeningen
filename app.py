@@ -1,6 +1,7 @@
 import pygame
 from pygame.display import flip
 from spaceship import Spaceship
+from Bullet import bullet
 import Background
 SCREEN_WIDTH = 1024
 SCREEN_HEIGHT = 768
@@ -65,6 +66,7 @@ class Keyboard:
 class State:
     background = None
     Spaceship = None
+    kogel = bullet()
     def __init__(self):
         self.x = 1048//2-95
         self.y = 768//2+200
@@ -81,6 +83,7 @@ class State:
         self.background.render(surface)
         # pygame.draw.circle(surface, (0,0,0), (self.x, self.y), 100, 10)
         self.Spaceship.render(surface)
+        self.kogel.render(surface)
 
 
 def main():
